@@ -1,51 +1,73 @@
-let mapleader=","
-let maplocalleader=","
+" === VIM Configuration for Vim 9.1 ===
+" Compatible with: WezTerm on macOS, zsh
 
-color desert
+" Enable syntax highlighting
+syntax enable
+filetype plugin indent on
 
+" === INDENTATION SETTINGS ===
+" Use spaces instead of tabs
 set expandtab
-set tabstop=2
-set shiftwidth=2
-set number
-set showcmd
-set directory=~/.vim/swapfiles//
-set wildmode=longest,list,full
-set wildmenu
-set backspace=indent,eol,start
-set hidden
-set nolist
-set ruler
+" Number of visual spaces per TAB
+set tabstop=4
+" Number of spaces for autoindent and shift operations (>>, <<)
+set shiftwidth=4
 
+" Enable auto-indentation
 set autoindent
+" Improved autoindent for C-like programs
 set smartindent
 
-" search
+" === VISUAL SETTINGS ===
+" Show line numbers
+set number
+" Show cursor position (line,column) in status line
+set ruler
+" Wrap long lines at window edge
+set wrap
+
+" === WHITESPACE VISUALIZATION ===
+" Make invisible characters visible
+set list
+" Define how to display invisible characters:
+"   tab:▸\  - Tabs show as ▸ with trailing spaces
+"   trail:· - Trailing spaces show as ·
+set listchars=tab:▸\ ,trail:·
+
+" === SEARCH BEHAVIOR ===
+" Case insensitive search...
 set ignorecase
+" ...unless search contains uppercase letters (smart)
 set smartcase
+" Highlight matches as you type
 set incsearch
+" Highlight all search matches
 set hlsearch
-set nowrap
 
-" clipboard
-set clipboard=unnamed
+" === BUFFER MANAGEMENT ===
+" Allow hiding modified buffers (unsaved changes) without warning
+set hidden
 
-call plug#begin()
+set directory=~/.vim/swapfiles//
 
-Plug 'tpope/vim-sensible'
-Plug 'jeetsukumaran/vim-buffergator'
-Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
-Plug 'pangloss/vim-javascript'
-Plug 'junegunn/goyo.vim', { 'for': 'markdown' }
-Plug 'vim-python/python-syntax'
+"
+" === RUST ===
+autocmd BufNewFile,BufRead *.rs set filetype=rust
+let g:ale_fixers = { 'rust': ['rustfmt', 'trim_whitespace', 'remove_trailing_lines'] }
 
-call plug#end()
+" Optional, configure as-you-type completions
+set completeopt=menu,menuone,preview,noselect,noinsert
+let g:ale_completion_enabled = 1
 
-" python-syntax
-let g:python_highlight_all = 1
-" nerdtree
-map <leader>n :NERDTreeToggle<CR>
+nnoremap <C-LeftMouse> :ALEGoToDefinition<CR>
 
+" Rust-specific settings
+autocmd FileType rust setlocal expandtab shiftwidth=4 softtabstop=4 tabstop=4
+autocmd FileType rust setlocal commentstring=//\ %s
 
+" Rust.vim configuration
+let g:rustfmt_autosave = 1
+let g:rust_clip_command = 'pbcopy'  " macOS specific
 
-
-set belloff=all
+" Enable all Rust features
+let g:rust_recommended_style = 1
