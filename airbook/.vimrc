@@ -1,10 +1,6 @@
 " === VIM Configuration for Vim 9.1 ===
 " Compatible with: WezTerm on macOS, zsh
 
-" Enable syntax highlighting
-syntax enable
-filetype plugin indent on
-
 " === INDENTATION SETTINGS ===
 " Use spaces instead of tabs
 set expandtab
@@ -54,12 +50,14 @@ set directory=~/.vim/swapfiles//
 " === RUST ===
 autocmd BufNewFile,BufRead *.rs set filetype=rust
 let g:ale_fixers = { 'rust': ['rustfmt', 'trim_whitespace', 'remove_trailing_lines'] }
+let g:ale_linters = { 'rust': ['analyzer'] }
+let g:ale_fix_on_save = 1
 
 " Optional, configure as-you-type completions
-set completeopt=menu,menuone,preview,noselect,noinsert
-let g:ale_completion_enabled = 1
+" set completeopt=menu,menuone,preview,noselect,noinsert
+" let g:ale_completion_enabled = 1
 
-nnoremap <C-LeftMouse> :ALEGoToDefinition<CR>
+" nnoremap <C-LeftMouse> :ALEGoToDefinition<CR>
 
 " Rust-specific settings
 autocmd FileType rust setlocal expandtab shiftwidth=4 softtabstop=4 tabstop=4
@@ -71,3 +69,7 @@ let g:rust_clip_command = 'pbcopy'  " macOS specific
 
 " Enable all Rust features
 let g:rust_recommended_style = 1
+
+" Enable syntax highlighting
+syntax enable
+filetype plugin indent on
