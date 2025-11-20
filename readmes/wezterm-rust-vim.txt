@@ -1,0 +1,8 @@
+https://petermalmgren.com/rc-batch-day-9/
+
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+brew install font-fira-code-nerd-font
+git clone https://github.com/rust-lang/rust.vim ~/.vim/pack/plugins/start/rust.vim
+rustup component add rust-analyzer
+cargo add bevy --features wayland
+cargo run
